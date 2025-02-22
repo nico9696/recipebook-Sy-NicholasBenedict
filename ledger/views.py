@@ -39,3 +39,37 @@ def show_ingredients_1(request):
     ]
 
     return render(request, "ledger/ingredients.html", {"ingredients": ingredients})
+
+def show_ingredients_2(request):
+    ingredients = [
+        {
+            "name": "garlic",
+            "quantity": "1 head"
+        },
+        {
+            "name": "onion",
+            "quantity": "1pc"
+        },
+        {
+            "name": "vinegar",
+            "quantity": "1/2cup"
+        },
+        {
+            "name": "water",
+            "quantity": "1 cup"
+        },
+        {
+            "name": "salt",
+            "quantity": "1 tablespoon"
+        },
+        {
+            "name": "whole black peppers",
+            "quantity": "1 tablespoon"
+        },
+        {
+            "name": "pork",
+            "quantity": "1 kilo"
+        }
+    ]
+
+    return render(request, "ledger/ingredients.html", {"ingredients": ingredients})
