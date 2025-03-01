@@ -1,19 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Recipe Book</title>
-</head>
-<body>
-
-    <h1>Recipe Book</h1>
-
+{% extends "ledger/layout.html" %}
+{% block body %}
     <ul>
         {% for recipe in recipes %}
             <li>
-                <a href="{{ recipe.link }}">{{ recipe.name }}</a>
+                <a href="{% url 'show_ingredients' recipe.id %}">{{ recipe.name }}</a> 
             </li>
         {% endfor %}
     </ul>
-
-</body>
-</html>
+{% endblock %}
