@@ -11,8 +11,8 @@ class RecipeIngredientInline(admin.TabularInline):
 
 class RecipeAdmin(admin.ModelAdmin):
     model = Recipe
-    search_fields = ('name', )
-    list_display = ('id', 'name')  
+    search_fields = ('name', 'author', 'created_on', 'updated_on', )
+    list_display = ('id', 'name', 'author', 'created_on', 'updated_on', )  
 
 class IngredientAdmin(admin.ModelAdmin):
     model = Ingredient
