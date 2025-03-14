@@ -4,7 +4,6 @@
         {% for recipe in recipes %}
             <li>
                 <a href="{% url 'show_ingredients' recipe.id %}">{{ recipe.name }}</a>
-                <p>by {{ recipe.author }}</p> 
             </li>
         {% endfor %}
     </ul>

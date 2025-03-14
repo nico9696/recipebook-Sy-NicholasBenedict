@@ -1,5 +1,6 @@
 {% extends "ledger/layout.html" %}
 {% block body %}
+    <p>by {{ ingredients.0.recipe.author }}</p> 
     <ul>
         {% for ingredient in ingredients %}
             <li>
