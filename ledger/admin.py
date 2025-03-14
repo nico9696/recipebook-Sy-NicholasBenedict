@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Recipe, Ingredient, RecipeIngredient
+from .models import Recipe, Ingredient, RecipeIngredient, Profile
+from django.contrib.auth.models import User
 
 # used Chatgpt for syntax of this particular class
 class RecipeIngredientInline(admin.TabularInline):  
@@ -22,6 +23,13 @@ class RecipeIngredientAdmin(admin.ModelAdmin):
     search_fields = ('ingredient__name', 'quantity') 
     list_display = ('recipe', 'ingredient', 'quantity')  
     list_filter = ('recipe__name', 'ingredient__name')
+
+class ProfileInline(admin.StackedInline):
+    model = Profile
+    can_delete = False
+
+class UserAdmin(admin.ModelAdmin):
+    inlines = [ProfileInline]
 
 admin.site.register(Recipe, RecipeAdmin)
 admin.site.register(Ingredient, IngredientAdmin)
