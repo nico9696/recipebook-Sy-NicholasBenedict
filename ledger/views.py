@@ -22,3 +22,7 @@ def login_view(request):
             login(request, user)
             return HttpResponseRedirect(reverse("recipe_list"))
     return render(request, "ledger/login.html")
+
+def logout_view(request):
+    logout(request)
+    return render(request, "ledger/login.html")
