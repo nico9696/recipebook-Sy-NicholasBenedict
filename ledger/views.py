@@ -5,11 +5,11 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 
-@login_required
+@login_required(login_url='/ledger/login/') # redirects to login page if not logged in
 def show_recipes_list(request):
     return render(request, "ledger/recipes_list.html", {"recipes": Recipe.objects.all()})
 
-@login_required
+@login_required(login_url='/ledger/login/')
 def show_ingredients(request, num):
     return render(request, "ledger/ingredients.html", {"ingredients": RecipeIngredient.objects.filter(recipe=num)})
 	
