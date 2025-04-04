@@ -1,11 +1,9 @@
 {% extends "ledger/layout.html" %}
+{% load static %}
 
-<head>
-    <title>{% block page_title %}Recipes List{% endblock %} | Recipe Book</title>
+{% block page_title %}Recipes List | Recipe Book{% endblock %}
 
-    {% block styles %}{% endblock %}
-
-</head>
+{% block style %}<style></style>{% endblock %}
 
 {% block body %}
     <ul>
