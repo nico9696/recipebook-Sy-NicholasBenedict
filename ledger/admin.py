@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Recipe, Ingredient, RecipeIngredient, Profile
+from .models import Recipe, Ingredient, RecipeIngredient, Profile, RecipeImage
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
@@ -25,6 +25,10 @@ class RecipeIngredientAdmin(admin.ModelAdmin):
     list_display = ('recipe', 'ingredient', 'quantity')  
     list_filter = ('recipe__name', 'ingredient__name')
 
+class RecipeImageAdmin(admin.ModelAdmin):
+    model = RecipeImage
+    list_display = ('id', 'description', 'recipe', )  
+
 class ProfileInline(admin.StackedInline):
     model = Profile
     can_delete = False
@@ -35,6 +39,7 @@ class UserAdmin(BaseUserAdmin):
 admin.site.register(Recipe, RecipeAdmin)
 admin.site.register(Ingredient, IngredientAdmin)
 admin.site.register(RecipeIngredient, RecipeIngredientAdmin)
+admin.site.register(RecipeImage, RecipeImageAdmin)
 
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
