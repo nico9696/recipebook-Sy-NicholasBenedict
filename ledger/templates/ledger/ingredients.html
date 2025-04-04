@@ -6,6 +6,9 @@
 {% block style %}<style></style>{% endblock %}
 
 {% block body %}
+    {% if object.image %}
+        <img src="{{ object.image.url }}" alt="">
+    {% endif %}
     <p>by {{ ingredients.0.recipe.author }}</p> 
     <ul>
         {% for ingredient in ingredients %}
