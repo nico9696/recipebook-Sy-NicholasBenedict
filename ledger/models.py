@@ -5,7 +5,7 @@ class Ingredient(models.Model):
     name = models.CharField(max_length=64)
 
     def __str__(self):
-        return str(self.id) 
+        return str(self.name) 
     
 class Recipe(models.Model):
     name = models.CharField(max_length=64)
@@ -13,7 +13,7 @@ class Recipe(models.Model):
     created_on = models.DateTimeField(auto_now_add=True) 
     updated_on = models.DateTimeField(auto_now=True)  
     def __str__(self):
-        return str(self.id) 
+        return str(self.name) 
 
 class RecipeIngredient(models.Model):
     quantity = models.CharField(max_length=64)
