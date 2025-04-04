@@ -128,3 +128,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = '/login/'  # Ensure this matches the login URL in `urls.py`
+
+# added for images
+MEDIA_ROOT = BASE_DIR/'media'
+MEDIA_URL = '/media/'
