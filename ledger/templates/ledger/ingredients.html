@@ -1,6 +1,11 @@
 {% extends "ledger/layout.html" %}
 
-{% block page_title %}Ingredients of Recipe{% endblock %}
+<head>
+    <title>{% block page_title %}Ingredients of Recipe{% endblock %} | Recipe Book</title>
+
+    {% block styles %}{% endblock %}
+
+</head>
 
 {% block body %}
     <p>by {{ ingredients.0.recipe.author }}</p> 
