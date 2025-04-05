@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+
 
 class Ingredient(models.Model):
     name = models.CharField(max_length=64)
@@ -12,6 +14,7 @@ class Recipe(models.Model):
     author = models.CharField(max_length=64)
     created_on = models.DateTimeField(auto_now_add=True) 
     updated_on = models.DateTimeField(auto_now=True)  
+    
     def __str__(self):
         return str(self.name) 
 
@@ -29,4 +32,9 @@ class Profile(models.Model):
 class RecipeImage(models.Model):
     image = models.ImageField(upload_to='images/', null=False)
     description = models.CharField(max_length=255)
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name="image") 
+    recipe = models.ForeignKey('Recipe', on_delete=models.CASCADE, null=True, blank=True)
+
+    # from ChatGPT (shows error when adding more than 1 pic to a recipe)
+    def clean(self):
+        if RecipeImage.objects.filter(recipe=self.recipe).exclude(pk=self.pk).exists():
+            raise ValidationError("This recipe already has an image.")

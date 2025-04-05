@@ -1,4 +1,4 @@
-from .models import Ingredient, Recipe, RecipeIngredient
+from .models import Ingredient, Recipe, RecipeIngredient, RecipeImage
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
@@ -11,7 +11,10 @@ def show_recipes_list(request):
 
 @login_required(login_url='/ledger/login/')
 def show_ingredients(request, num):
-    return render(request, "ledger/ingredients.html", {"ingredients": RecipeIngredient.objects.filter(recipe=num)})
+    return render(request, "ledger/ingredients.html", {
+        "recipe_ingredient": RecipeIngredient.objects.filter(recipe=num),
+        "image" : RecipeImage.objects.filter(recipe=num).first()
+    })
 	
 def login_view(request):
     if request.method == "POST":

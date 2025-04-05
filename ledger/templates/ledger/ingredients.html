@@ -6,12 +6,15 @@
 {% block style %}<style></style>{% endblock %}
 
 {% block body %}
-    {% if object.image %}
-        <img src="{{ object.image.url }}" alt="">
+    {% if image %}
+        <img src="{{ image.image.url }}" alt="{{ image.description }}" style="max-width: 400px;">
+    {% else %}
+        <p>No image available for this recipe.</p>
     {% endif %}
-    <p>by {{ ingredients.0.recipe.author }}</p> 
+
+    <p>by {{ recipe_ingredient.0.recipe.author }}</p> 
     <ul>
-        {% for ingredient in ingredients %}
+        {% for ingredient in recipe_ingredient %}
             <li>
                 <p>name: {{ ingredient.ingredient.name }}</p>
                 <p>quantity: {{ ingredient.quantity }}</p>

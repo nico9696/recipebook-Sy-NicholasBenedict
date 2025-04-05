@@ -9,10 +9,19 @@ class RecipeIngredientInline(admin.TabularInline):
     model = RecipeIngredient
     extra = 1  
 
+# allows for RecipeImage to be accessed while in Recipe
+class RecipeImageInline(admin.TabularInline): 
+    model = RecipeImage
+    max_num = 1  # max of 1 image per recipe
+    readonly_fields = ('image', 'description')
+    can_delete = False
+
+
 class RecipeAdmin(admin.ModelAdmin):
     model = Recipe
     search_fields = ('name', 'author', 'created_on', 'updated_on', )
     list_display = ('id', 'name', 'author', 'created_on', 'updated_on', )  
+    inlines = [RecipeImageInline]
 
 class IngredientAdmin(admin.ModelAdmin):
     model = Ingredient
@@ -27,7 +36,7 @@ class RecipeIngredientAdmin(admin.ModelAdmin):
 
 class RecipeImageAdmin(admin.ModelAdmin):
     model = RecipeImage
-    list_display = ('id', 'description', 'recipe', )  
+    list_display = ('id', 'recipe', 'image', 'description', )  
 
 class ProfileInline(admin.StackedInline):
     model = Profile
