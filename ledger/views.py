@@ -15,6 +15,10 @@ def show_ingredients(request, num):
         "recipe_ingredient": RecipeIngredient.objects.filter(recipe=num),
         "image" : RecipeImage.objects.filter(recipe=num).first()
     })
+
+@login_required(login_url='/ledger/login/')
+def add_recipe_form(request, num):
+    return render(request, "ledger/add_recipe_form.html")
 	
 def login_view(request):
     if request.method == "POST":
