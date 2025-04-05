@@ -9,4 +9,4 @@ class RecipeForm(forms.ModelForm):
 class IngredientForm(forms.ModelForm):
     class Meta:
         model = Ingredient
-        fields= '__all__'
+        fields = '__all__'

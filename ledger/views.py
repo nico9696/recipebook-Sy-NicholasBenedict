@@ -17,10 +17,6 @@ def show_ingredients(request, num):
         "recipe_ingredient": RecipeIngredient.objects.filter(recipe=num),
         "image" : RecipeImage.objects.filter(recipe=num).first()
     })
-
-@login_required(login_url='/ledger/login/')
-def add_recipe_form(request, num):
-    return render(request, "ledger/add_recipe_form.html")
 	
 def login_view(request):
     if request.method == "POST":
@@ -36,21 +32,33 @@ def logout_view(request):
     logout(request)
     return render(request, "ledger/login.html")
 
-def add_recipe(request):
+@login_required(login_url='/ledger/login/')
+def add_recipe_and_ingredient(request):
     if (request.method == "POST"):
-        recipe_form = RecipeForm(request.POST)
-        ingredient_form = IngredientForm(request.POST)
+        recipe_form = RecipeForm(request.POST, prefix="recipe")
+        ingredient_form = IngredientForm(request.POST, prefix="ingredient")
         
-        if recipe_form.is_valid() and ingredient_form.is_valid():
-            recipe_form.save # this is for forms.ModelForm
-            ingredient_form.save
+        if recipe_form.is_valid():
+            recipe = recipe_form.save() # this is for forms.ModelForm
 
-        return redirect('add_recipe')
+            ingredient_name = request.POST.get('ingredient')
+            quantity = request.POST.get('quantity')
+            if ingredient_name and quantity:
+
+                # Get or create the Ingredient object
+                ingredient_obj, created = Ingredient.objects.get_or_create(name=ingredient_name)
+
+                # saves to RecipeIngredient linking the above
+                RecipeIngredient.objects.create(
+                    recipe = recipe,
+                    ingredient = ingredient_obj,
+                    quantity = request.POST.get('quantity')
+                )
+
+        return redirect('add_recipe_and_ingredient')
     
-    recipe_form = RecipeForm()
-    ingredient_form = IngredientForm()
+    recipe_form = RecipeForm(prefix="recipe")
 
     return render(request, 'ledger/add_r&i.html', {
         'add_recipe_form': recipe_form,
-        'add_ingredient_form': ingredient_form 
     })
