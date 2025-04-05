@@ -8,7 +8,12 @@
 {% block body %}
     <form method="post">
         {% csrf_token %}
-        {{ add_r%i_form.as_p }}
+        {{ add_recipe_form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+    <form method="post">
+        {% csrf_token %}
+        {{ add_ingredient_form.as_p }}
         <button type="submit">Submit</button>
     </form>
 {% endblock %}
