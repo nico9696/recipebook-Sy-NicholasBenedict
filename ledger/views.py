@@ -4,6 +4,8 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
+from .models import Recipe, Ingredient
+from .forms import RecipeForm, IngredientForm
 
 @login_required(login_url='/ledger/login/') # redirects to login page if not logged in
 def show_recipes_list(request):
