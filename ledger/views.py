@@ -4,8 +4,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
-from .models import Recipe, Ingredient
-from .forms import RecipeForm, IngredientForm
+from .models import Recipe, Ingredient, RecipeIngredient
+from .forms import RecipeForm, IngredientForm, RecipeIngredientForm
 
 @login_required(login_url='/ledger/login/') # redirects to login page if not logged in
 def show_recipes_list(request):
@@ -37,28 +37,25 @@ def add_recipe_and_ingredient(request):
     if (request.method == "POST"):
         recipe_form = RecipeForm(request.POST, prefix="recipe")
         ingredient_form = IngredientForm(request.POST, prefix="ingredient")
+        recipe_ingredient_form = RecipeIngredientForm(request.POST, prefix="recipe_ingredient")
         
         if recipe_form.is_valid():
-            recipe = recipe_form.save() # this is for forms.ModelForm
+            recipe_form.save() # this is for forms.ModelForm
 
-            ingredient_name = request.POST.get('ingredient')
-            quantity = request.POST.get('quantity')
-            if ingredient_name and quantity:
+        if ingredient_form.is_valid():
+            ingredient_form.save() 
 
-                # Get or create the Ingredient object
-                ingredient_obj, created = Ingredient.objects.get_or_create(name=ingredient_name)
-
-                # saves to RecipeIngredient linking the above
-                RecipeIngredient.objects.create(
-                    recipe = recipe,
-                    ingredient = ingredient_obj,
-                    quantity = request.POST.get('quantity')
-                )
+        if recipe_ingredient_form.is_valid():
+            recipe_ingredient_form.save() 
 
         return redirect('add_recipe_and_ingredient')
     
     recipe_form = RecipeForm(prefix="recipe")
+    ingredient_form = IngredientForm(prefix="ingredient")
+    recipe_ingredient_form = RecipeIngredientForm(prefix="recipe_ingredient")
 
     return render(request, 'ledger/add_r&i.html', {
         'add_recipe_form': recipe_form,
+        'add_ingredient_form': ingredient_form,
+        'add_recipe_ingredient_form': recipe_ingredient_form,
     })

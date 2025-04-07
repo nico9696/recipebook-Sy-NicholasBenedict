@@ -8,15 +8,27 @@
 {% block body %}
     <form method="post">
         {% csrf_token %}
+
         <h2>Recipe</h2>
         {{ add_recipe_form.as_p }}
 
-        <h2>Ingredient</h2>
-        <!-- {{ add_ingredient_form.as_p }} -->
-        <input type="text" name="ingredient">
+        <button type="submit">Submit</button>
+    </form>
 
-        <h2>Quantity</h2>
-        <input type="text" name="quantity">
+    <form method="post">
+        {% csrf_token %}
+
+        <h2>Ingredient</h2>
+        {{ add_ingredient_form.as_p }}
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <h2>RecipeIngredient</h2>
+        {{ add_recipe_ingredient_form.as_p }}
 
         <button type="submit">Submit</button>
     </form>
