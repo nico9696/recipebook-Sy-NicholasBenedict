@@ -4,8 +4,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
-from .models import Recipe, RecipeIngredient
-from .forms import RecipeForm, IngredientForm, RecipeIngredientForm
+from .models import Recipe, RecipeIngredient, RecipeImage
+from .forms import RecipeForm, IngredientForm, RecipeIngredientForm, RecipeImageForm
 
 @login_required(login_url='/ledger/login/') # redirects to login page if not logged in
 def show_recipes_list(request):
@@ -62,4 +62,16 @@ def add_recipe_and_ingredient(request):
 
 @login_required(login_url='/ledger/login/')
 def add_image(request):
-    return render(request, "ledger/recipes_list.html", {"recipes": Recipe.objects.all()})
+    if (request.method == "POST"):
+        recipe_image_form = RecipeForm(request.POST)
+
+        if recipe_image_form.is_valid():
+            recipe_image_form.save() 
+
+        return redirect('add_recipe_and_ingredient')
+        
+    recipe_image_form = RecipeImageForm()
+
+    return render(request, 'ledger/add_image.html', {
+        'add_image_form': recipe_image_form,
+    })

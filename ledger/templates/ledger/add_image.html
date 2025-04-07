@@ -1,0 +1,19 @@
+{% extends "ledger/layout.html" %}
+{% load static %}
+
+{% block page_title %}Add image | Recipe Book{% endblock %}
+
+{% block style %}<style></style>{% endblock %}
+
+{% block body %}
+    <form method="post">
+        {% csrf_token %}
+
+        <h2>Add an image to your recipe</h2>
+        {{ add_recipe_ingredient_form.as_p }}
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <a href="{% url 'recipe_list'%}">Back to recipe list!</a>
+{% endblock %}
