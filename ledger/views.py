@@ -60,18 +60,22 @@ def add_recipe_and_ingredient(request):
         'add_recipe_ingredient_form': recipe_ingredient_form,
     })
 
+# got some help from ChatGPT here
 @login_required(login_url='/ledger/login/')
-def add_image(request):
-    if (request.method == "POST"):
-        recipe_image_form = RecipeForm(request.POST, request.FILES) # including request.FILES here is for the images
+def add_image(request, pk):
+    recipe = Recipe.objects.get(pk=pk)  # Get the specific recipe 
 
+    if request.method == "POST":
+        recipe_image_form = RecipeImageForm(request.POST, request.FILES)
         if recipe_image_form.is_valid():
-            recipe_image_form.save() 
-
-        return redirect('add_recipe_and_ingredient')
-        
-    recipe_image_form = RecipeImageForm()
+            image_instance = recipe_image_form.save(commit=False)
+            image_instance.recipe = recipe  # Link image to the specific recipe
+            image_instance.save()
+            return redirect('show_ingredients', num=recipe.id)  # redirect to the recipe detail
+    else:
+        form = RecipeImageForm()
 
     return render(request, 'ledger/add_image.html', {
-        'add_image_form': recipe_image_form,
+        'add_image_form': form,
+        'recipe': recipe
     })

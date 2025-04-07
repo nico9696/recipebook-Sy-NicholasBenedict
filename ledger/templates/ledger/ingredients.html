@@ -21,4 +21,6 @@
             </li>
         {% endfor %}
     </ul>
+
+    <a href="{% url 'add_image' recipe_ingredient.0.recipe.id %}">Add image to recipe!</a>
 {% endblock %}

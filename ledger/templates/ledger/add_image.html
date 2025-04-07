@@ -10,7 +10,8 @@
         {% csrf_token %}
 
         <h2>Add an image to your recipe</h2>
-        {{ add_recipe_ingredient_form.as_p }}
+        {{ add_image_form.image }}
+        {{ add_image_form.description }}
 
         <button type="submit">Submit</button>
     </form>
