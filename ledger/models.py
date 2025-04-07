@@ -33,8 +33,3 @@ class RecipeImage(models.Model):
     image = models.ImageField(upload_to='images/', null=False)
     description = models.CharField(max_length=255)
     recipe = models.ForeignKey('Recipe', on_delete=models.CASCADE, null=True, blank=True)
-
-    # from ChatGPT (shows error when adding more than 1 pic to a recipe)
-    def clean(self):
-        if RecipeImage.objects.filter(recipe=self.recipe).exclude(pk=self.pk).exists():
-            raise ValidationError("This recipe already has an image.")

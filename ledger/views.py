@@ -15,7 +15,7 @@ def show_recipes_list(request):
 def show_ingredients(request, num):
     return render(request, "ledger/ingredients.html", {
         "recipe_ingredient": RecipeIngredient.objects.filter(recipe=num),
-        "image" : RecipeImage.objects.filter(recipe=num).first()
+        "images" : RecipeImage.objects.filter(recipe=num)
     })
 	
 def login_view(request):
