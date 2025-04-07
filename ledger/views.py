@@ -63,7 +63,7 @@ def add_recipe_and_ingredient(request):
 @login_required(login_url='/ledger/login/')
 def add_image(request):
     if (request.method == "POST"):
-        recipe_image_form = RecipeForm(request.POST)
+        recipe_image_form = RecipeForm(request.POST, request.FILES) # including request.FILES here is for the images
 
         if recipe_image_form.is_valid():
             recipe_image_form.save() 

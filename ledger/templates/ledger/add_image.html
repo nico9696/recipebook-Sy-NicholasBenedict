@@ -6,7 +6,7 @@
 {% block style %}<style></style>{% endblock %}
 
 {% block body %}
-    <form method="post">
+    <form method="post" enctype="multipart/form-data"> <!-- this enctype enables form to accept files like images as form data -->
         {% csrf_token %}
 
         <h2>Add an image to your recipe</h2>
