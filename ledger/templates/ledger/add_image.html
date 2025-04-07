@@ -1,0 +1,20 @@
+{% extends "ledger/layout.html" %}
+{% load static %}
+
+{% block page_title %}Add image | Recipe Book{% endblock %}
+
+{% block style %}<style></style>{% endblock %}
+
+{% block body %}
+    <form method="post" enctype="multipart/form-data"> <!-- this enctype enables form to accept files like images as form data -->
+        {% csrf_token %}
+
+        <h2>Add an image to your recipe</h2>
+        {{ add_image_form.image }}
+        {{ add_image_form.description }}
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <a href="{% url 'recipe_list'%}">Back to recipe list!</a>
+{% endblock %}

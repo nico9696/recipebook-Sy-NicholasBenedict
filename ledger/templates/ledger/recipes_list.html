@@ -1,6 +1,9 @@
 {% extends "ledger/layout.html" %}
+{% load static %}
 
-{% block page_title %}Recipes List{% endblock %}
+{% block page_title %}Recipes List | Recipe Book{% endblock %}
+
+{% block style %}<style></style>{% endblock %}
 
 {% block body %}
     <ul>
@@ -10,4 +13,6 @@
             </li>
         {% endfor %}
     </ul>
+
+    <a href="{% url 'add_recipe_and_ingredient' %}">Add recipe, ingredient, or both!</a>
 {% endblock %}

@@ -1,0 +1,37 @@
+{% extends "ledger/layout.html" %}
+{% load static %}
+
+{% block page_title %}Add Recipe and Ingredient | Recipe Book{% endblock %}
+
+{% block style %}<style></style>{% endblock %}
+
+{% block body %}
+    <form method="post">
+        {% csrf_token %}
+
+        <h2>Recipe</h2>
+        {{ add_recipe_form.as_p }}
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <h2>Ingredient</h2>
+        {{ add_ingredient_form.as_p }}
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <h2>RecipeIngredient</h2>
+        {{ add_recipe_ingredient_form.as_p }}
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <a href="{% url 'recipe_list'%}">Back to recipe list!</a>
+{% endblock %}
