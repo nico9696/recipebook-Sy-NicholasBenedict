@@ -59,3 +59,7 @@ def add_recipe_and_ingredient(request):
         'add_ingredient_form': ingredient_form,
         'add_recipe_ingredient_form': recipe_ingredient_form,
     })
+
+@login_required(login_url='/ledger/login/')
+def add_image(request):
+    return render(request, "ledger/recipes_list.html", {"recipes": Recipe.objects.all()})
